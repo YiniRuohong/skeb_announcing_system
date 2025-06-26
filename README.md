@@ -1,0 +1,2 @@
+# skeb_announcing_system
+一个自动通知和发送申请的skeb画师监控系统
