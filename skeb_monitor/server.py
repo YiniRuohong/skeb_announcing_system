@@ -17,6 +17,11 @@ def index():
 def frontend_js():
     return send_from_directory(FRONTEND_DIR, 'app.js')
 
+
+@app.route('/style.css')
+def frontend_css():
+    return send_from_directory(FRONTEND_DIR, 'style.css')
+
 @app.route('/api/artists')
 def artists():
     data = client.get_following()

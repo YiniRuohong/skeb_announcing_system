@@ -1,3 +1,15 @@
+function ArtistCard({ artist }) {
+  const price = artist.skills && artist.skills[0] && artist.skills[0].default_amount;
+  const status = artist.acceptable ? `Open - Price: ${price || '?'}` : 'Closed';
+  const statusClass = artist.acceptable ? 'status open' : 'status closed';
+  return React.createElement(
+    'div',
+    { className: 'card' },
+    React.createElement('div', { className: 'name' }, artist.name),
+    React.createElement('div', { className: statusClass }, status)
+  );
+}
+
 function App() {
   const [artists, setArtists] = React.useState([]);
 
@@ -9,17 +21,9 @@ function App() {
 
   return React.createElement(
     'div',
-    null,
+    { className: 'container' },
     React.createElement('h1', null, 'Followed Artists'),
-    React.createElement(
-      'ul',
-      null,
-      artists.map(a => {
-        const price = a.skills && a.skills[0] && a.skills[0].default_amount;
-        const status = a.acceptable ? `Open - Price: ${price || '?'}` : 'Closed';
-        return React.createElement('li', { key: a.screen_name }, `${a.name} - ${status}`);
-      })
-    )
+    artists.map(a => React.createElement(ArtistCard, { artist: a, key: a.screen_name }))
   );
 }
 
