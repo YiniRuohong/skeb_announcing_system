@@ -1,3 +1,37 @@
+function ArtistsTable({ artists }) {
+  return React.createElement(
+    'table',
+    { className: 'artist-table' },
+    React.createElement(
+      'thead',
+      null,
+      React.createElement(
+        'tr',
+        null,
+        React.createElement('th', null, 'Artist'),
+        React.createElement('th', null, 'Open'),
+        React.createElement('th', null, 'Price')
+      )
+    ),
+    React.createElement(
+      'tbody',
+      null,
+      artists.map(a => {
+        const price = a.skills && a.skills[0] && a.skills[0].default_amount;
+        const statusEmoji = a.acceptable ? '✅' : '❌';
+        const priceCell = a.acceptable ? price || '?' : '-';
+        return React.createElement(
+          'tr',
+          { key: a.screen_name },
+          React.createElement('td', null, a.name),
+          React.createElement('td', { className: a.acceptable ? 'status open' : 'status closed' }, statusEmoji),
+          React.createElement('td', null, priceCell)
+        );
+      })
+    )
+  );
+}
+
 function App() {
   const [artists, setArtists] = React.useState([]);
 
@@ -9,17 +43,9 @@ function App() {
 
   return React.createElement(
     'div',
-    null,
+    { className: 'container' },
     React.createElement('h1', null, 'Followed Artists'),
-    React.createElement(
-      'ul',
-      null,
-      artists.map(a => {
-        const price = a.skills && a.skills[0] && a.skills[0].default_amount;
-        const status = a.acceptable ? `Open - Price: ${price || '?'}` : 'Closed';
-        return React.createElement('li', { key: a.screen_name }, `${a.name} - ${status}`);
-      })
-    )
+    React.createElement(ArtistsTable, { artists })
   );
 }
 
