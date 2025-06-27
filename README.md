@@ -10,9 +10,10 @@ See [TASKS.md](TASKS.md) for the planned tasks and implementation steps.
    ```bash
    pip install -r requirements.txt
    ```
-2. Export your cookie and start the server:
+2. Export your cookie and start the server. The cookie only needs the
+   `request_key` value provided after logging in:
    ```bash
-   export SKEB_COOKIE="_session=..."
+   export SKEB_COOKIE="request_key=YOUR_VALUE"
    python -m skeb_monitor.server
    ```
-3. Open `frontend/index.html` in your browser.
+3. Open `http://localhost:5000/` in your browser.
