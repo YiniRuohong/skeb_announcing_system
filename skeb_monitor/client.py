@@ -41,14 +41,27 @@ class SkebClient:
         """Return a list of creators the current user follows."""
         me = self.get_user('me')
         my_name = me.get('screen_name')
-        url = f'https://skeb.jp/api/users/{my_name}/followings'
-        data = self.session.get(url)
-        data.raise_for_status()
-        creators = data.json().get('following_creators', [])
+
+        page = 1
         results = []
-        for c in creators:
-            info = self.get_user(c['screen_name'])
-            c['skills'] = info.get('skills', [])
-            c['acceptable'] = info.get('acceptable')
-            results.append(c)
+
+        while True:
+            url = f'https://skeb.jp/api/users/{my_name}/followings?page={page}'
+            data = self.session.get(url)
+            data.raise_for_status()
+            payload = data.json()
+            creators = payload.get('following_creators', [])
+
+            for c in creators:
+                info = self.get_user(c['screen_name'])
+                c['skills'] = info.get('skills', [])
+                c['acceptable'] = info.get('acceptable')
+                results.append(c)
+
+            # Advance to the next page if provided, otherwise stop when no
+            # creators remain.
+            page = payload.get('next_page')
+            if not page:
+                break
+
         return results
