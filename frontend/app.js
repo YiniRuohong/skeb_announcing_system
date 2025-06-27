@@ -20,7 +20,19 @@ function App() {
       artists.map(a => {
         const price = a.skills && a.skills[0] && a.skills[0].default_amount;
         const status = a.acceptable ? `Open - Price: ${price || '?'}` : 'Closed';
-        return React.createElement('li', { key: a.screen_name }, `${a.name} - ${status}`);
+        return React.createElement(
+          'li',
+          { key: a.screen_name },
+          `${a.name} - ${status} `,
+          React.createElement(
+            'button',
+            {
+              onClick: () =>
+                window.open(`https://skeb.jp/@${a.screen_name}`, '_blank'),
+            },
+            'Open page'
+          )
+        );
       })
     )
   );
