@@ -1,3 +1,4 @@
+
 function ArtistCard({ artist }) {
   const price = artist.skills && artist.skills[0] && artist.skills[0].default_amount;
   const status = artist.acceptable ? `Open - Price: ${price || '?'}` : 'Closed';
