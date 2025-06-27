@@ -2,7 +2,10 @@ function App() {
   const [artists, setArtists] = React.useState([]);
 
   React.useEffect(() => {
-    fetch('/api/artists')
+    const base = window.location.origin.startsWith('file://')
+      ? 'http://localhost:5000'
+      : window.location.origin;
+    fetch(base + '/api/artists')
       .then(res => res.json())
       .then(data => setArtists(data));
   }, []);
