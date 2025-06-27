@@ -16,4 +16,11 @@ See [TASKS.md](TASKS.md) for the planned tasks and implementation steps.
    export SKEB_COOKIE="request_key=YOUR_VALUE"
    python -m skeb_monitor.server
    ```
-3. Open `http://localhost:5000/` in your browser.
+3. **Open the site using the server URL**. Do not load `index.html` directly
+   from disk or the API calls will fail. Instead browse to
+   `http://localhost:5000/`.
+
+The page lists the artists you follow and shows whether they are accepting
+commissions. Each entry includes a button that opens the artist's Skeb page in a
+new tab.
+
