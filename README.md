@@ -24,3 +24,23 @@ The page lists the artists you follow and shows whether they are accepting
 commissions. Each entry includes a button that opens the artist's Skeb page in a
 new tab.
 
+## Getting cookies with a browser
+
+If you prefer obtaining the full cookie via a browser, run:
+
+```bash
+python login_browser.py
+```
+
+A Chrome window opens so you can log in via Twitter/X. After logging in,
+press Enter in the console to save the cookies to `skeb_storage.json`.
+
+## Command-line monitoring
+
+You can monitor selected artists using `monitor_manual.py`. Create an
+`artists.txt` listing their screen names (one per line) and run:
+
+```bash
+python monitor_manual.py
+```
+
