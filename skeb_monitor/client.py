@@ -1,3 +1,4 @@
+import json
 import requests
 
 # Default headers copied from skeb_utils to avoid 403 errors
@@ -29,6 +30,17 @@ class SkebClient:
         self.session.headers.update(DEFAULT_HEADERS)
         if cookie:
             self.session.headers['Cookie'] = cookie
+
+    @classmethod
+    def from_storage(cls, storage_path="skeb_storage.json"):
+        """Create a client using a cookie stored in JSON."""
+        try:
+            with open(storage_path, encoding="utf-8") as f:
+                data = json.load(f)
+                cookie = data.get("cookie", "")
+        except FileNotFoundError:
+            cookie = ""
+        return cls(cookie)
 
     def get_user(self, name: str):
         """Fetch user information."""
